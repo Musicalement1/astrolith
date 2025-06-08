@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astrolith - Indev</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="menu">
+    <h1>Astrolith</h1>
+    <button onclick="startGame()">Play</button>
+    <button onclick="openOptions()">Options</button>
+    <button onclick="openControls()">Controls</button>
+    <button onclick="showChangelog()">Changelog</button>
+  </div>
+  <div id="parallax-background"></div>
+  <div id="hud"></div>
+  <canvas id="space"></canvas>
+  <script src="menu.js"></script>
+  <div id="options" style="display: none;">
+    <h2>Options</h2>
+    <label>
+      Name of your civilization :
+      <input type="text" id="opt-name" placeholder="Player">
+    </label><br><br>
+    <label>
+      Color of your civilization :
+      <input type="color" id="opt-color" value="#00ff00">
+    </label><br><br>
+      <label>
+        Gravity multiplier (G) :
+        <input type="number" step = "0.0001" id="opt-gravity" value="0.008">
+      </label><br><br>
+      <label>
+      Speed of your ship :
+      <input type="number" step = "0.0001" id="opt-speed" placeholder="0.003">
+    </label><br><br>
+    <label>
+      Max Orbit Length Prediction :
+      <input type="number" step = "100" id="opt-maxOrbit" placeholder="5000">
+    </label><br><br>
+    <label>
+      Start game from 1 sun?:
+      <input type="checkbox" id="opt-mediocreSpawn">
+    </label>
+    <!---<label>
+      Volume (Unused for now) :
+      <input type="range" id="opt-volume" min="0" max="100" value="50">
+    </label><br><br>
+  
+    <label>
+      Difficulty (Unused for now) :
+      <select id="opt-difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Normal</option>
+        <option value="hard">Hard</option>
+      </select>
+    </label><br><br>>-->
+  
+    <button onclick="saveOptions()">Save</button>
+    <button onclick="resetOptions()">Reset</button>
+    <button onclick="backToMenu()">Back</button>
+  </div>
+  <div id="controls" style="display: none;">
+    <h1>Controls</h1>
+    <h2 class="noice-text">-----Gameplay-----</h2>
+    <h2>Arrow Keys : Move (left and right change direction while up and down accelerates the ship)</h2>
+    <h2>+ (or =): Zoom In</h2>
+    <h2>- : Zoom Out</h2>
+    <h2>U : Prograde lock</h2>
+    <h2>I : Retrograde lock</h2>
+    <h2>O : Radial lock</h2>
+    <h2>P : Anti-Radial lock</h2>
+    <h2>Click on any celestial object to look at its properties!</h2>
+    <h2 class="noice-text">-----Cheats-----</h2>
+    <h2>T : Teleports to mouse</h2>
+    <h2>Hold Z : Drags stars</h2>
+    <button onclick="backToMenu()">Back</button>
+  </div>
+  <button id="changelogButton" onclick="backToMenu()" style="display: none;">
+    Back
+  </button>
+  <script>
+ document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("#changelog li").forEach(li => {
+      const subChanges = li.querySelector(":scope > ul.changes");
+
+      if (subChanges) {
+        li.classList.add("expandable");
+
+        li.addEventListener("click", function (e) {
+          if (e.target !== li) return;
+
+          const isOpen = subChanges.style.display === "block";
+          subChanges.style.display = isOpen ? "none" : "block";
+          li.classList.toggle("open", !isOpen);
+        });
+      }
+    });
+  });
+  </script>
+<div id="changelog" style="display: none;">
+  <h1>Changelog</h1>
+  <ul>
+    <li>
+      <b>Version 1.0</b> - Changelog's Changelog - 31st May 2025
+      <ul class="changes">
+        <li>Added Changelog</li>
+        <li>
+          A Quick Current Status Of The Game (many many changes aren't listed because else I would basically say everything I did since the beginning of the game):
+          <ul class="changes">
+            <li>
+              Generation
+              <ul class="changes">
+                <li>Stars spawn in a random galaxy' form</li>
+                <li>Stars normally prevent from touching each other</li>
+                <li>Stars have 100% random generated names</li>
+                <li>Stars have varying temperature, which defines their color</li>
+                <li>Stars have planets</li>
+              </ul>
+            </li>
+            <li>
+              Player
+              <ul class="changes">
+                <li>The player can set its name and its color and some constants in option menu</li>
+                <li>The player is a ship and can use instructions in #controls to control it</li>
+                <li>The player now sees its predicted orbit with its apoapsis periapsis and crash point</li>
+              </ul>
+            </li>
+            <li>
+              Many, Many more changes aren't listed, and probably won't keep that in mind :p, however, in the future I'll log absolutely everything here, major updates, minor fixes...
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div id="infoPanel" style="
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 300px;
+  font-family: Arial, sans-serif;
+  display: none;
+">
+  <img id="infoImage" src="" alt="Body" style="width: 100%; border-radius: 5px; margin-bottom: 10px;">
+  <div id="infoText"></div>
+</div>
+
+</body>
+</html>
