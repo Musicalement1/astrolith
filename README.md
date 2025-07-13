@@ -1,4 +1,4 @@
-#Astrolith
+# Astrolith
 
 Astrolith is a game simulating space physics in a universe generated randomly, but yet with coherent generation (such as random names, stars generating in a way that makes a random galaxy & more!)
 
