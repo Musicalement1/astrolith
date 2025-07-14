@@ -1709,7 +1709,7 @@ function collideStars() {
   } while (merged);
 }
 
-function dirtyCheck() {
+function dirtyCheck() {//Function that doesn't run every frame for optimization
   //cleanStars(civilizations)
   //reassignStarsToCivilizations(civilizations, stars)
   updateCivilizationPlanetCounts()
